@@ -39,7 +39,7 @@ def generate(image_data):
     if r.status_code == 204:
         logging.info(f"Image code: {image_key}")
         
-        with st.spinner('Screws Detection Process In Progress...'):
+        with st.spinner('Screws Detection Process Is In Progress...'):
             time.sleep(10)
             unique_identifier = image_key.split('/')[-1].split('.')[0]
             labelled_image_key = f'image/labelled/{unique_identifier}.jpg'
