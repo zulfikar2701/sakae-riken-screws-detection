@@ -1,0 +1,5 @@
+opencv-python
+requests
+boto3
+toml
+streamlit
