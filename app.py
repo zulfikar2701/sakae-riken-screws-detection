@@ -13,10 +13,10 @@ from io import BytesIO
 logging.basicConfig(level=logging.INFO)
 
 # Load credentials
-credential = toml.load("credential.toml")
-credential = credential["aws"]
-aws_access_key_id = credential["AWS_ACCESS_KEY_ID"]
-aws_secret_access_key = credential["AWS_SECRET_ACCESS_KEY"]
+# credential = toml.load("credential.toml")
+# credential = credential["aws"]
+aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
+aws_secret_access_key = st.secrets["AWS_SECRET_ACCESS_KEY"]
 
 # Initialize S3 client
 s3_client = boto3.client(
