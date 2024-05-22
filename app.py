@@ -65,7 +65,7 @@ def main():
     st.title("Sakae Riken Automated Quality Inspection Prototype")
     intro_empty = st.empty()
     intro_empty.subheader("Trained on car bumper screws dataset, upload a picture to detect white and green screws")
-    st.sidebar.image("logo.png")
+    st.sidebar.image("assets/logo.png")
     st.sidebar.title("Automated Quality Inspection")
     option = st.sidebar.selectbox("Choose image to be inspected:", (None, "Take a picture", "Upload a picture"))
 
