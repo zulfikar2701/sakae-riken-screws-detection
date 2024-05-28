@@ -62,7 +62,7 @@ def generate(image_data):
         return f"Image Uploading Unsuccessful, failed with status code: {r.status_code}"
 
 def main():
-    st.title("Sakae Riken Automated Quality Inspection Prototype")
+    st.title("Automotive Manufacturing Automated Quality Inspection Prototype")
     intro_empty = st.empty()
     intro_empty.subheader("Trained on car bumper screws dataset, upload a picture to detect white and green screws")
     st.sidebar.image("assets/logo.png")
