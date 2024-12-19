@@ -40,7 +40,7 @@ def generate(image_data):
         logging.info(f"Image code: {image_key}")
         
         with st.spinner('Screws Detection Process Is In Progress...'):
-            time.sleep(10)
+            time.sleep(20)
             unique_identifier = image_key.split('/')[-1].split('.')[0]
             labelled_image_key = f'image/labelled/{unique_identifier}.jpg'
         st.success("Result:")
@@ -48,7 +48,7 @@ def generate(image_data):
             content_object = s3_client.get_object(Bucket='test-sakaeriken-img-recognition', Key=labelled_image_key)
             file_content = content_object['Body'].read()
             image = Image.open(BytesIO(file_content))
-            st.image(image, caption='Predicted Image', use_column_width=True)
+            st.image(image, caption='Predicted Image', use_container_width=True)
             return "Image retrieved successfully!"
 
         except Exception as e:
@@ -72,7 +72,7 @@ def main():
     if option == "Take a picture":
         picture = st.sidebar.camera_input("Take a picture")
         if picture:
-            st.sidebar.image(picture, caption='Taken Picture', use_column_width=True)
+            st.sidebar.image(picture, caption='Taken Picture', use_container_width=True)
             # Convert to bytes for uploading
             picture_bytes = picture.getvalue()
             intro_empty.empty()
@@ -83,7 +83,7 @@ def main():
     elif option == "Upload a picture":
         image = st.sidebar.file_uploader("Upload a picture", type=["jpg", "jpeg", "png"])
         if image is not None:
-            st.sidebar.image(image, caption='Uploaded Image', use_column_width=True)
+            st.sidebar.image(image, caption='Uploaded Image', use_container_width=True)
             # Convert to bytes for uploading
             image_bytes = image.getvalue()
             intro_empty.empty()
