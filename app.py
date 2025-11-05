@@ -54,122 +54,111 @@ except Exception as e:
 
 
 def apply_custom_css():
-    """Apply custom CSS for modern UI styling"""
+    """Apply custom CSS for professional UI styling"""
     st.markdown("""
     <style>
         /* Main container styling */
         .main {
-            background-color: #f8f9fa;
+            background-color: #ffffff;
         }
 
         /* Header styling */
         .header-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 2rem;
-            border-radius: 10px;
+            background-color: #1a1a1a;
+            padding: 2rem 3rem;
+            border-bottom: 3px solid #2c5aa0;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .header-title {
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 600;
             margin: 0;
-            text-align: center;
+            letter-spacing: 0.5px;
         }
 
         .header-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-            text-align: center;
+            color: #b0b0b0;
+            font-size: 0.95rem;
             margin-top: 0.5rem;
+            font-weight: 400;
         }
 
         /* Status badges */
         .status-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-align: center;
-            margin: 1rem 0;
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 1.5rem 0;
+            letter-spacing: 0.5px;
         }
 
         .status-pass {
-            background-color: #28a745;
+            background-color: #0d7c3a;
             color: white;
+            border-left: 4px solid #0a5c2b;
         }
 
         .status-fail {
-            background-color: #dc3545;
+            background-color: #c41e3a;
             color: white;
+            border-left: 4px solid #8e1629;
         }
 
-        .status-processing {
-            background-color: #ffc107;
-            color: #333;
-        }
-
-        /* Info cards */
-        .info-card {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 1rem 0;
-        }
-
-        .info-label {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .info-value {
-            font-size: 1.5rem;
-            color: #333;
-            margin-top: 0.5rem;
-        }
-
-        /* Sidebar styling */
-        .css-1d391kg {
+        /* Metric cards */
+        .metric-card {
             background-color: #f8f9fa;
+            padding: 1.2rem;
+            border-radius: 4px;
+            border-left: 3px solid #2c5aa0;
+            margin: 0.5rem 0;
         }
 
-        /* Button styling */
-        .stButton > button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 0.5rem 2rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
+        .metric-label {
+            font-weight: 500;
+            color: #666666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
         }
 
-        .stButton > button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .metric-value {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            font-weight: 600;
         }
 
-        /* Image container */
-        .image-container {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Info card for welcome */
+        .info-card {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
             margin: 1rem 0;
         }
 
         /* Progress message */
         .progress-message {
-            background-color: #e3f2fd;
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid #2196f3;
+            background-color: #f0f4f8;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            border-left: 3px solid #2c5aa0;
             margin: 1rem 0;
+            color: #1a1a1a;
+        }
+
+        /* Section headers */
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 1.5rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -242,7 +231,7 @@ def poll_for_result(labelled_image_key: str) -> Tuple[Optional[Image.Image], str
 
             elapsed_time = (attempt + 1) * CONFIG['POLLING_INTERVAL']
             status_text.markdown(
-                f"<div class='progress-message'>⏳ Processing image... ({elapsed_time}s elapsed)</div>",
+                f"<div class='progress-message'>Processing image... ({elapsed_time}s elapsed)</div>",
                 unsafe_allow_html=True
             )
 
@@ -318,7 +307,7 @@ def process_image(image_data: bytes) -> Tuple[bool, Optional[Image.Image], Optio
         return False, None, None, upload_msg
 
     # Poll for processed result
-    with st.spinner('🔍 AI Detection in Progress...'):
+    with st.spinner('Detection in progress...'):
         processed_image, poll_msg = poll_for_result(labelled_image_key)
 
     if processed_image is None:
@@ -331,72 +320,72 @@ def process_image(image_data: bytes) -> Tuple[bool, Optional[Image.Image], Optio
 
 
 def display_results(original_image: bytes, processed_image: Image.Image, results: Dict):
-    """Display results in a modern, informative layout"""
+    """Display results in a clean, professional layout"""
 
     # Display status badge
     status = results['status']
     status_class = 'status-pass' if status == 'PASS' else 'status-fail'
-    status_icon = '✅' if status == 'PASS' else '❌'
 
     st.markdown(
-        f"<div class='status-badge {status_class}'>{status_icon} Quality Check: {status}</div>",
+        f"<div class='status-badge {status_class}'>INSPECTION RESULT: {status}</div>",
         unsafe_allow_html=True
     )
 
     # Display images side by side
+    st.markdown("<div class='section-header'>Image Comparison</div>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### 📸 Original Image")
+        st.markdown("**Original Image**")
         st.image(original_image, use_container_width=True)
 
     with col2:
-        st.markdown("### 🎯 Detection Results")
+        st.markdown("**Detection Results**")
         st.image(processed_image, use_container_width=True)
 
     # Display detection metrics
-    st.markdown("### 📊 Detection Metrics")
+    st.markdown("<div class='section-header'>Detection Metrics</div>", unsafe_allow_html=True)
 
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         st.markdown(
-            f"""<div class='info-card'>
-                <div class='info-label'>Screws Detected</div>
-                <div class='info-value'>{results['screws_detected']}/{results['expected_screws']}</div>
+            f"""<div class='metric-card'>
+                <div class='metric-label'>Screws Detected</div>
+                <div class='metric-value'>{results['screws_detected']}/{results['expected_screws']}</div>
             </div>""",
             unsafe_allow_html=True
         )
 
     with col2:
         st.markdown(
-            f"""<div class='info-card'>
-                <div class='info-label'>Confidence</div>
-                <div class='info-value'>{results['confidence']:.1%}</div>
+            f"""<div class='metric-card'>
+                <div class='metric-label'>Confidence</div>
+                <div class='metric-value'>{results['confidence']:.1%}</div>
             </div>""",
             unsafe_allow_html=True
         )
 
     with col3:
         st.markdown(
-            f"""<div class='info-card'>
-                <div class='info-label'>White Screws</div>
-                <div class='info-value'>{results['white_screws']}</div>
+            f"""<div class='metric-card'>
+                <div class='metric-label'>White Screws</div>
+                <div class='metric-value'>{results['white_screws']}</div>
             </div>""",
             unsafe_allow_html=True
         )
 
     with col4:
         st.markdown(
-            f"""<div class='info-card'>
-                <div class='info-label'>Green Screws</div>
-                <div class='info-value'>{results['green_screws']}</div>
+            f"""<div class='metric-card'>
+                <div class='metric-label'>Green Screws</div>
+                <div class='metric-value'>{results['green_screws']}</div>
             </div>""",
             unsafe_allow_html=True
         )
 
     # Display detailed information
-    with st.expander("📋 Detailed Information"):
+    with st.expander("View Detailed Information"):
         st.write(f"**Timestamp:** {results['timestamp']}")
         st.write(f"**Image ID:** {results['image_key'].split('/')[-1]}")
         st.write(f"**Missing Screws:** {results['missing_screws']}")
@@ -408,7 +397,7 @@ def display_results(original_image: bytes, processed_image: Image.Image, results
     byte_im = buf.getvalue()
 
     st.download_button(
-        label="⬇️ Download Result Image",
+        label="Download Result Image",
         data=byte_im,
         file_name=f"screw_detection_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg",
         mime="image/jpeg"
@@ -421,7 +410,6 @@ def main():
     # Page configuration
     st.set_page_config(
         page_title="Automotive Quality Inspection",
-        page_icon="🔧",
         layout="wide",
         initial_sidebar_state="expanded"
     )
@@ -432,8 +420,8 @@ def main():
     # Header
     st.markdown("""
         <div class='header-container'>
-            <h1 class='header-title'>🔧 Automotive Quality Inspection System</h1>
-            <p class='header-subtitle'>AI-Powered Screw Detection for Car Bumper Components</p>
+            <h1 class='header-title'>Automotive Quality Inspection System</h1>
+            <p class='header-subtitle'>Automated Screw Detection for Manufacturing Quality Control</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -441,20 +429,20 @@ def main():
     with st.sidebar:
         st.image("assets/logo.png", use_container_width=True)
         st.markdown("---")
-        st.markdown("### 🎯 Inspection Options")
+        st.markdown("### Inspection Options")
 
         option = st.selectbox(
             "Select input method:",
-            (None, "📷 Take a Picture", "📁 Upload a Picture"),
+            (None, "Camera Input", "File Upload"),
             index=0
         )
 
         st.markdown("---")
 
         # Information section
-        with st.expander("ℹ️ About"):
+        with st.expander("About"):
             st.write("""
-            This system uses advanced AI to detect and verify screws on car bumper components.
+            This system uses computer vision to detect and verify screws on car bumper components.
 
             **Supported Screw Types:**
             - White screws
@@ -467,7 +455,7 @@ def main():
             - Detailed reporting
             """)
 
-        with st.expander("⚙️ Settings"):
+        with st.expander("Settings"):
             st.write(f"**Max File Size:** {CONFIG['MAX_FILE_SIZE_MB']}MB")
             st.write(f"**Supported Formats:** {', '.join(CONFIG['ALLOWED_EXTENSIONS'])}")
             st.write(f"**Max Wait Time:** {CONFIG['MAX_POLLING_ATTEMPTS'] * CONFIG['POLLING_INTERVAL']}s")
@@ -479,15 +467,15 @@ def main():
         with col2:
             st.markdown("""
                 <div class='info-card' style='text-align: center; padding: 3rem;'>
-                    <h2>👈 Get Started</h2>
-                    <p style='font-size: 1.1rem; color: #666;'>
+                    <h2>Get Started</h2>
+                    <p style='font-size: 1.05rem; color: #666;'>
                         Select an input method from the sidebar to begin quality inspection
                     </p>
                 </div>
             """, unsafe_allow_html=True)
 
             # Display sample images
-            st.markdown("### 📚 Sample Images")
+            st.markdown("<div class='section-header'>Sample Images</div>", unsafe_allow_html=True)
             col_a, col_b = st.columns(2)
             with col_a:
                 try:
@@ -500,8 +488,8 @@ def main():
                 except:
                     pass
 
-    elif option == "📷 Take a Picture":
-        st.markdown("### 📷 Camera Input")
+    elif option == "Camera Input":
+        st.markdown("<div class='section-header'>Camera Input</div>", unsafe_allow_html=True)
 
         with st.sidebar:
             picture = st.camera_input("Take a picture of the component")
@@ -511,7 +499,7 @@ def main():
 
             # Show original in sidebar
             with st.sidebar:
-                st.success("✅ Image captured!")
+                st.success("Image captured")
 
             # Process image
             success, processed_image, results, message = process_image(picture_bytes)
@@ -519,11 +507,11 @@ def main():
             if success:
                 display_results(picture_bytes, processed_image, results)
             else:
-                st.error(f"❌ {message}")
+                st.error(f"Error: {message}")
                 logger.error(f"Processing failed: {message}")
 
-    elif option == "📁 Upload a Picture":
-        st.markdown("### 📁 File Upload")
+    elif option == "File Upload":
+        st.markdown("<div class='section-header'>File Upload</div>", unsafe_allow_html=True)
 
         with st.sidebar:
             uploaded_file = st.file_uploader(
@@ -537,7 +525,7 @@ def main():
 
             # Show original in sidebar
             with st.sidebar:
-                st.success("✅ Image uploaded!")
+                st.success("Image uploaded")
 
             # Process image
             success, processed_image, results, message = process_image(image_bytes)
@@ -545,7 +533,7 @@ def main():
             if success:
                 display_results(image_bytes, processed_image, results)
             else:
-                st.error(f"❌ {message}")
+                st.error(f"Error: {message}")
                 logger.error(f"Processing failed: {message}")
 
 
